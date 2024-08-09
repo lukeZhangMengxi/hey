@@ -36,7 +36,7 @@ import (
 const (
 	headerRegexp = `^([\w-]+):\s*(.+)`
 	authRegexp   = `^(.+):([^\s].+)`
-	heyUA        = "hey/0.0.1"
+	heyVersion   = "mengxi-hey/1.0.0"
 )
 
 var (
@@ -70,7 +70,10 @@ var (
 	certKey  = flag.String("cert-key", "", "")
 )
 
-var usage = `Usage: hey [options...] <url>
+var usage = `
+Version: %s
+
+Usage: hey [options...] <url>
 
 Options:
   -n  Number of requests to run. Default is 200.
@@ -92,7 +95,7 @@ Options:
   -d  HTTP request body.
   -D  HTTP request body from file. For example, /home/user/file.txt or ./file.txt.
   -T  Content-type, defaults to "text/html".
-  -U  User-Agent, defaults to version "hey/0.0.1".
+  -U  User-Agent, defaults to version "%s".
   -a  Basic authentication, username:password.
   -x  HTTP Proxy address as host:port.
   -h2 Enable HTTP/2.
@@ -106,13 +109,13 @@ Options:
   -cpus                 Number of used cpu cores.
                         (default for current machine is %d cores)
 
-  -cert      file path to the X509 certificate
-  -cert-key  file path to the X509 certidicate key
+  -cert      file path to the client X509 certificate
+  -cert-key  file path to the client X509 certidicate key
 `
 
 func main() {
 	flag.Usage = func() {
-		fmt.Fprint(os.Stderr, fmt.Sprintf(usage, runtime.NumCPU()))
+		fmt.Fprint(os.Stderr, fmt.Sprintf(usage, heyVersion, heyVersion, runtime.NumCPU()))
 	}
 
 	var hs headerSlice
@@ -214,15 +217,15 @@ func main() {
 
 	ua := header.Get("User-Agent")
 	if ua == "" {
-		ua = heyUA
+		ua = heyVersion
 	} else {
-		ua += " " + heyUA
+		ua += " " + heyVersion
 	}
 	header.Set("User-Agent", ua)
 
 	// set userAgent header if set
 	if *userAgent != "" {
-		ua = *userAgent + " " + heyUA
+		ua = *userAgent + " " + heyVersion
 		header.Set("User-Agent", ua)
 	}
 
