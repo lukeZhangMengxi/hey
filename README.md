@@ -1,7 +1,5 @@
 ![hey](http://i.imgur.com/szzD9q0.png)
 
-[![Build Status](https://travis-ci.org/rakyll/hey.svg?branch=master)](https://travis-ci.org/rakyll/hey)
-
 hey is a tiny program that sends some load to a web application.
 
 hey was originally called boom and was influenced from Tarek Ziade's
@@ -9,16 +7,13 @@ tool at [tarekziade/boom](https://github.com/tarekziade/boom). Using the same na
 where binary name conflicts created confusion.
 To preserve the name for its original owner, we renamed this project to hey.
 
+The original repo has not been updated for 3 years, and this is a continuation of the project.
+
 ## Installation
 
-* Linux 64-bit: https://hey-release.s3.us-east-2.amazonaws.com/hey_linux_amd64
-* Mac 64-bit: https://hey-release.s3.us-east-2.amazonaws.com/hey_darwin_amd64
-* Windows 64-bit: https://hey-release.s3.us-east-2.amazonaws.com/hey_windows_amd64
-
-### Package Managers
-
-macOS:
--  [Homebrew](https://brew.sh/) users can use `brew install hey`.
+1. Downdload the source code
+2. `cd` to this project and run `make`, which will generate the executables for different OS to `./bin`
+3. Add the generated executable to yor `$PATH`
 
 ## Usage
 
@@ -27,6 +22,8 @@ hey runs provided number of requests in the provided concurrency level and print
 It also supports HTTP2 endpoints.
 
 ```
+Version: mengxi-hey/1.0.0
+
 Usage: hey [options...] <url>
 
 Options:
@@ -49,6 +46,7 @@ Options:
   -d  HTTP request body.
   -D  HTTP request body from file. For example, /home/user/file.txt or ./file.txt.
   -T  Content-type, defaults to "text/html".
+  -U  User-Agent, defaults to version "mengxi-hey/1.0.0".
   -a  Basic authentication, username:password.
   -x  HTTP Proxy address as host:port.
   -h2 Enable HTTP/2.
@@ -60,7 +58,12 @@ Options:
                         connections between different HTTP requests.
   -disable-redirects    Disable following of HTTP redirects
   -cpus                 Number of used cpu cores.
-                        (default for current machine is 8 cores)
+                        (default for current machine is 10 cores)
+
+  -cert      file path to the client X509 certificate
+  -cert-key  file path to the client X509 certidicate key
 ```
 
-Previously known as [github.com/rakyll/boom](https://github.com/rakyll/boom).
+Previously known as 
+- [github.com/rakyll/hey](https://github.com/rakyll/hey)
+- [github.com/rakyll/boom](https://github.com/rakyll/boom)
